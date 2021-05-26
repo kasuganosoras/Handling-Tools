@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 <html>
-
-
 <head>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=11">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-
-
-
     <script src="notify.js"></script>
-    <title>Handling</title>
+    <title>Handling 编辑器</title>
+	<style>
+	.border h3 {
+		margin-top: 16px;
+	}
+	.border > .border h3 {
+		margin-top: unset;
+	}
+	#modelFlagsSection .border .py-1, #handlingFlagsSection .border .py-1 {
+		cursor: pointer;
+	}
+	#modelFlagsSection .border .py-1:hover, #handlingFlagsSection .border .py-1:hover {
+		background: rgba(0,0,0,0.05);
+	}
+	.margin-bottom-16 {
+		margin-bottom: 16px;
+	}
+	</style>
 </head>
-
-
 <body>
     <div>
         <small class="float-right px-1 text-muted">0.3.5 - Added mass comparer</small><br>
         <div class="text-center">
-            <span class="display-4">Handling Editor</span><br>
-            <span class="mt-2">Edit handling files easily, and quickly.</span>
+            <span class="display-4">Handling 编辑器</span><br>
+            <span class="mt-2">在线轻松编辑你的 Handling 文件</span>
         </div>
     </div>
 
     <div class="container px-5" style="max-width:1500px">
         <div class="py-5 w-50 mx-auto">
 
-            <p>This tool aims to help beginners visualise and understand handling files,
-                by establishing itself as an intuitive interface between the user and the file.
-            </p>
-            <p>
-                You can start from scratch, and move sliders around right away. Just press the Save button at the bottom
-                to download the an edited file. Do remember to open it and edit the handling id.
-            </p>
-            <p class="text-center mt-5">
-                Also, you can load a custom handling file below.
-            </p>
+            <p>这个工具主要用于提供一个可视化的界面来对 Handling 文件进行修改，方便初学者了解如何修改车辆的数据文件。</p>
+            <p>你可以从头开始，通过移动滑块来调整参数，完成后只需要按下保存按钮即可下载编辑好的 Handling 文件，不要忘了用记事本打开并修改 Handling 的 ID。</p>
+            <p class="text-center mt-5">你也可以在下方加载自定义的 Handling 文件。</p>
             <div class="d-flex justify-content-around">
 
                 <div class="">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input " id="handlingFileLoader">
-                        <label class="custom-file-label" for="handlingFileLoader">Select a handling.meta file...</label>
+                        <input type="file" class="custom-file-input " id="handlingFileLoader" accept=".meta,.xml">
+                        <label class="custom-file-label" for="handlingFileLoader">选择一个 Handling 文件</label>
                     </div>
                 </div>
 
@@ -53,7 +57,7 @@
 
             <div class="text-center mt-2">
                 <a name="" onfocus="UpdateFileObject()" id="savefile" class="btn btn-primary btn " href="#"
-                    role="button">Save Current File</a>
+                    role="button">保存当前文件</a>
             </div>
             <div class="d-flex align-content-center mt-2">
             </div>
@@ -61,48 +65,47 @@
     </div>
 
     <!-- Alert in case the user does not load a handling file but tries to edit the values -->
-    <div class="alert alert-warning alert w-25 mx-auto text-center d-none" role="alert" id="wEmptyFile">Load a handling
-        file first.</div>
+    <div class="alert alert-warning alert w-25 mx-auto text-center d-none" role="alert" id="wEmptyFile">请先加载一个 Handling 文件</div>
 
     <div class="container-fluid border py-2 px-5 mb-5" style="max-width:1500px">
         <!-- Tab links -->
         <ul class="nav nav-tabs justify-content-center">
 
             <li class="nav-item">
-                <a class="nav-link active show" data-toggle="tab" id="aero-tab" href="#aero">Aero</a>
+                <a class="nav-link active show" data-toggle="tab" id="aero-tab" href="#aero">空气动力</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="chassis-tab" href="#chassis">Chassis</a>
+                <a class="nav-link" data-toggle="tab" id="chassis-tab" href="#chassis">车身</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="engine-tab" href="#engine">Engine</a>
+                <a class="nav-link" data-toggle="tab" id="engine-tab" href="#engine">引擎</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="transmission-tab" href="#transmission">Transmission</a>
+                <a class="nav-link" data-toggle="tab" id="transmission-tab" href="#transmission">传动系统</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="brakes-tab" href="#brakes">Brakes</a>
+                <a class="nav-link" data-toggle="tab" id="brakes-tab" href="#brakes">刹车</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="traction-tab" href="#traction">Traction</a>
+                <a class="nav-link" data-toggle="tab" id="traction-tab" href="#traction">牵引力</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="suspension-tab" href="#suspension">Suspension</a>
+                <a class="nav-link" data-toggle="tab" id="suspension-tab" href="#suspension">悬挂</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="antiroll-tab" href="#antiroll">Antiroll</a>
+                <a class="nav-link" data-toggle="tab" id="antiroll-tab" href="#antiroll">防倾杆</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Flags</a>
+                <a class="nav-link" data-toggle="tab" id="flags-tab" href="#flags">Flags</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="raw-tab" href="#raw">Raw data</a>
+                <a class="nav-link" data-toggle="tab" id="raw-tab" href="#raw">原始数据</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="measurements-tab" href="#measurements">Metrics</a>
+                <a class="nav-link" data-toggle="tab" id="measurements-tab" href="#measurements">单位</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="comparer-tab" href="#comparer">Mass Comparer</a>
+                <a class="nav-link" data-toggle="tab" id="comparer-tab" href="#comparer">数据比较</a>
             </li>
         </ul>
         <!-- Tabs Holder -->
@@ -113,14 +116,13 @@
                 <div class="row pb-4 px-3">
 
                     <div class="border mt-3">
-                        <h3 class="text-center py-1">Aero</h3>
-                        <p class="px-5 text-center">This set of values represent the vehicle body shape, and mostly
-                            affect top speed behavior.</p>
+                        <h3 class="text-center py-1">空气动力</h3>
+                        <p class="px-5 text-center">这些数值代表车辆的空气动力学相关参数，会影响车辆的最高速度</p>
                         <hr>
                         <div class="d-flex align-content-around px-3">
                             <div class="w-50 p-5">
                                 <div class="bg-light border border-rounded p-4">
-                                    <h3 class="text-center">Downforce</h3>
+                                    <h3 class="text-center">下压力</h3>
                                     <p class="text-muted text-center">fDownforceModifier</p>
                                     <canvas id="downforceChart" width="100" height="50"></canvas>
                                     <div class="d-flex align-content-center">
@@ -135,44 +137,34 @@
                                         class="form-control text-center my-2" step="0.005" id="fDownforceModifierInput">
 
 
-                                    <p class="text-center">This car will generate <span id="fDownforceModifierExpl"
-                                            class="text-danger">d</span>Gs of additional grip at 60mph.</p>
+                                    <p class="text-center">车辆将会在速度超过 100km/h 的时候产生额外的 <span id="fDownforceModifierExpl"
+                                            class="text-danger">d</span>G 抓地力</p>
                                     <hr>
 
-                                    <p>Downforce is a way to gain grip at speed, and can be increased by Spoilers.</p>
-                                    <p>In V, downforce is represented as two behaviors - an actual down force pressing
-                                        the car down, and a separate grip gain based on fDownforceModifier and a
-                                        ruleset. <br><br>The resulting value is added to the wheel grip, multiply by the
-                                        four wheels you'd usually have.</p>
+                                    <p>下压力是一种提高抓地力的方法，可以通过尾翼增加下压力。</p>
+                                    <p>在 GTA5 中，下压力表示为两种行为-实际将汽车向下压的下压力，以及基于fDownforceModifier和规则集的单独抓地力。<br><br>
+									将结果值添加到车轮抓地力，再乘以车轮数量（通常是 4 个）。</p>
                                     <hr>
-                                    <p>The value of fDownforceModifier can define one of three rulesets for the
-                                        Downforce calculations:
+                                    <p>fDownforceModifier 的值可以定义为以下三个压力计算的设定之一：
                                         <li>
-                                            <b>Dynamic</b>: Between 1.0 and 100. The vehicle gains grip at a variable
-                                            rate from 0 when static to 0.035 * fDownforceModifier at 90% of its top
-                                            speed.
+                                            <b>动态</b>：介于 1.0 到 100。车辆会动态增加抓地力，静止状态时为 0，达到 90% 的最高速度时为 fDownforceModifier 的值乘以 0.035。
                                         </li>
                                         <li>
-                                            <b>Static (high)</b>: 1.0 or less. The vehicle gains a flat grip increase of
-                                            0.035, 0.07 if using a tuning Spoiler.
+                                            <b>静态 (高)</b>: 1.0 或更小。车辆会产生 0.035 的平面抓地力，如果改装了尾翼，则为 0.07。
                                         </li>
                                         <li>
-                                            <b>Static (low)</b>: 100 or more. The vehicle gains a flat grip increase of
-                                            0.0105, 0.01313 if using a spoiler.
+                                            <b>静态 (低)</b>: 100 或更多。车辆会产生 0.0105 的平面抓地力，如果改装了尾翼，则为 0.01313。
                                         </li>
                                     </p>
-                                    <p>Active Aero vehicles ignore this value, setting a 0.035 gain when the spoiler is
-                                        raised, up to 0.07 when it pitches down to aid cornering or braking.</p>
+                                    <p>自动尾翼车辆会忽略这个设定，当尾翼升高的时候会设置为 0.035，刹车时会设定为 0.07</p>
                                     <hr>
-                                    <p>There is a fourth ruleset, used on the Open Wheel vehicles, which requires
-                                        advanced flags and defines specific rates per Spoiler/Bumper. Investigation is
-                                        still ongoing.</p>
+                                    <p>在方程式赛车上有第四个设定，这个设定需要高级 Flag 并定义每个保险杠/风刀/尾翼的指定数值，目前还在研究中。</p>
 
                                 </div>
                             </div>
                             <div class="w-50 p-5">
                                 <div class="bg-light border border-rounded p-4">
-                                    <h3 class="text-center">Air Resistance</h3>
+                                    <h3 class="text-center">空气阻力</h3>
                                     <p class="text-muted text-center">fInitialDragCoeff</p>
                                     <canvas id="airdragChart" width="100" height="50"></canvas>
 
@@ -185,29 +177,19 @@
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="fInitialDragCoeff"
                                         class="form-control text-center my-2" step="0.05" id="fInitialDragCoeffInput">
-                                    <p>The vehicle's body air resistance.
+                                    <p>车辆的车身空气阻力。
                                     </p>
-                                    <p>
-                                        Higher resistance means an eariler perceived loss of
-                                        power at higher speed, resulting in a lower top speed, as the engine cannot
-                                        overpower this force. Lower air resistance allows the vehicle to travel faster
-                                        on the same power.
-                                    </p>
+                                    <p>较高的阻力意味着在高速行驶的情况下，动力损失会更加明显，从而降低最高速度，因为发动机无法抵消该作用力。较低的空气阻力可以让车辆在同样马力的情况下开的更快。</p>
 
-                                    <p>Working as a multiplier, this value defines how much will air drag scale with
-                                        speed. The higher the multiplier, the more powerful air resistance will be at
-                                        high speeds.</p>
+                                    <p>这个数值乘以速度即可得到风阻，数值越大，高速行驶的时候空气阻力就越大。</p>
                                     <!--
                                     <div class="alert alert-warning mt-3" role="alert">This value does not yet simulate
                                         torque falloff at the end of the gear, so it is innacurate. It will show a top
                                         speed lower than the ingame top speed.</div>-->
                                     <div class="pl-5 font-italic">
-                                        <li>The tug of war between Torque and Drag is not very strong. Your vehicle can
-                                            easily go over this speed on downhill or under performance upgrades, though
-                                            not very far.</li>
-                                        <li>Drag works against Torque. Both are measured in G-Forces, the speed at which
-                                            they even out is the vehicle's top speed.</li>
-                                        <li>Unlike Downforce, drag is omnidirectional.</li>
+                                        <li>扭矩和阻力之间的关联并不是很强，当车辆行驶在下坡路段或者改装了性能之后可以轻松超过此速度，虽然提升不是很多。</li>
+                                        <li>阻力和扭矩相反，两者均以 G 力为单位进行计算，它们的平均值就是车辆的最高速度。</li>
+                                        <li>和下压力不同，阻力的作用是全方向的。</li>
                                     </div>
                                 </div>
                             </div>
@@ -220,15 +202,14 @@
 
                 <div class="row pb-4 px-3">
                     <div class="border mt-3">
-                        <h3 class="text-center py-1">Chassis</h3>
-                        <p class="px-5 text-center">This set of values represent the vehicle body itself, and will play
-                            a big role on how the vehicle behaves overall.</p>
+                        <h3 class="text-center py-1">车身</h3>
+                        <p class="px-5 text-center">这些数值代表车辆的主体物理设定，并将对车辆的运动行为起到很大的作用。</p>
                         <hr>
 
                         <div class="row px-3">
                             <div class="col-md-4">
                                 <div class="bg-light border border-rounded p-4">
-                                    <h3 class="text-center">Mass </h3>
+                                    <h3 class="text-center">重量</h3>
                                     <p class="text-muted text-center">fMass</p>
                                     <div class="d-flex align-content-center">
                                         <span>0</span>
@@ -241,56 +222,109 @@
                                         <div class="text-center" style="min-height:50px">
                                             <input type="number" oninput="applyValueChange(this)" name="fMass"
                                                 id="fMassInput" class="form-control text-center my-2">
-                                            <small class="d-none">Your car will weight <span
-                                                    class="text-danger">1000</span>kg.</small>
+                                            <small class="d-none">你的车将会有 <span
+                                                    class="text-danger">1000</span>kg 重</small>
                                         </div>
                                     </div>
-                                    <p>Measured in Kg, mass is only responsible for the interaction between entities.
-                                        Let's
-                                        say its the vehicle's pushing force. </p>
-                                    <p>Mass is not at all related to physical
-                                        agility and does not affect the car's physics at all. Only affects how well the
-                                        car fares when colliding
-                                        with other entities. Vehicles, Lamp posts, rocks, etc.</p>
+                                    <p>以 Kg 千克为单位，这个重量只在实体之间互相碰撞时产生效果。</p>
+                                    <p>重量与车辆的操作手感没有任何关系，也完全不影响汽车的性能。只影响汽车在与其他实体碰撞时的情况。其他车辆、灯柱、石头等。</p>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="bg-light border border-rounded p-4">
 
-                                    <h3 class="text-center">Center of Mass</h3>
-                                    <p class="text-muted text-center">vecCentreOfMassOffset</p>
+                                    <h3 class="text-center">重心偏移</h3>
+                                    <p class="text-muted text-center">vecCentreOfMassOffset X</p>
 
                                     <div class="d-flex align-content-center">
-                                        <span>-2</span>
-                                        <input type="range" min="-2" max="2" value="0" step="0.01"
+                                        <span>-4</span>
+                                        <input type="range" min="-4" max="4" value="0" step="0.01"
                                             class="form-control-range w-100 mx-2 custom-range"
-                                            id="d_vecCentreOfMassOffsetSlider" oninput="applyValueChange(this)"
-                                            name="vecCentreOfMassOffset" disabled>
-                                        <span>2</span>
+                                            id="vecCentreOfMassOffset__XSlider" oninput="applyValueChange(this, 'x')"
+                                            name="vecCentreOfMassOffset__X">
+                                        <span>4</span>
                                     </div>
-                                    <input type="number" oninput="applyValueChange(this)" name="vecCentreOfMassOffset"
-                                        class="form-control text-center my-2" step="0.001"
-                                        id="d_vecCentreOfMassOffsetInput" disabled>
-                                    <p>This editor is not able to edit the Center Of Mass offsets yet.</p>
+                                    <input type="number" oninput="applyValueChange(this, 'x')" name="vecCentreOfMassOffset__X"
+                                        class="form-control text-center my-2" step="0.001" value="0.0"
+                                        id="vecCentreOfMassOffset__XInput">
+										
+									<p class="text-muted text-center">vecCentreOfMassOffset Y</p>
+
+                                    <div class="d-flex align-content-center">
+                                        <span>-4</span>
+                                        <input type="range" min="-4" max="4" value="0" step="0.01"
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="vecCentreOfMassOffset__YSlider" oninput="applyValueChange(this, 'y')"
+                                            name="vecCentreOfMassOffset__Y">
+                                        <span>4</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this, 'y')" name="vecCentreOfMassOffset__Y"
+                                        class="form-control text-center my-2" step="0.001" value="0.0"
+                                        id="vecCentreOfMassOffset__YInput">
+									
+									<p class="text-muted text-center">vecCentreOfMassOffset Z</p>
+
+                                    <div class="d-flex align-content-center">
+                                        <span>-4</span>
+                                        <input type="range" min="-4" max="4" value="0" step="0.01"
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="vecCentreOfMassOffset__ZSlider" oninput="applyValueChange(this, 'z')"
+                                            name="vecCentreOfMassOffset__Z">
+                                        <span>4</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this, 'z')" name="vecCentreOfMassOffset__Z"
+                                        class="form-control text-center my-2" step="0.001" value="0.0"
+                                        id="vecCentreOfMassOffset__ZInput">
+                                    <p>这些数值指定了车身重心的偏移量，X 表示左右，Y 表示前后，Z 表示上下。</p>
+									<p>如果发现某些车辆容易侧翻，可以尝试降低 Z 值，负数也可以。</p>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="bg-light border border-rounded p-4">
-                                    <h3 class="text-center">Rotational Inertia</h3>
-                                    <p class="text-muted text-center">vecInertiaMultiplier</p>
+                                    <h3 class="text-center">旋转惯性</h3>
+                                    <p class="text-muted text-center">vecInertiaMultiplier X</p>
 
                                     <div class="d-flex align-content-center">
-                                        <span>-2</span>
-                                        <input type="range" min="-2" max="2" value="0" step="0.01"
+                                        <span>-4</span>
+                                        <input type="range" min="-4" max="4" value="1.4" step="0.01"
                                             class="form-control-range w-100 mx-2 custom-range"
-                                            id="d_vecInertiaMultiplierSlider" oninput="applyValueChange(this)"
-                                            name="vecInertiaMultiplier" disabled>
-                                        <span>2</span>
+                                            id="vecInertiaMultiplier__XSlider" oninput="applyValueChange(this, 'x')"
+                                            name="vecInertiaMultiplier__X">
+                                        <span>4</span>
                                     </div>
-                                    <input type="number" oninput="applyValueChange(this)" name="vecInertiaMultiplier"
-                                        class="form-control text-center my-2" step="0.001"
-                                        id="d_vecInertiaMultiplierInput" disabled>
-                                    <p>This editor is not able to edit the Rotational Inertia offsets yet.</p>
+                                    <input type="number" oninput="applyValueChange(this, 'x')" name="vecInertiaMultiplier__X"
+                                        class="form-control text-center my-2" step="0.001" value="1.4"
+                                        id="vecInertiaMultiplier__XInput">
+									
+									<p class="text-muted text-center">vecInertiaMultiplier Y</p>
+
+                                    <div class="d-flex align-content-center">
+                                        <span>-4</span>
+                                        <input type="range" min="-4" max="4" value="1.4" step="0.01"
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="vecInertiaMultiplier__YSlider" oninput="applyValueChange(this, 'y')"
+                                            name="vecInertiaMultiplier__Y">
+                                        <span>4</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this, 'y')" name="vecInertiaMultiplier__Y"
+                                        class="form-control text-center my-2" step="0.001" value="1.4"
+                                        id="vecInertiaMultiplier__YInput">
+									
+									<p class="text-muted text-center">vecInertiaMultiplier Z</p>
+
+                                    <div class="d-flex align-content-center">
+                                        <span>-4</span>
+                                        <input type="range" min="-4" max="4" value="1.6" step="0.01"
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="vecInertiaMultiplier__ZSlider" oninput="applyValueChange(this, 'z')"
+                                            name="vecInertiaMultiplier__Z">
+                                        <span>4</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this, 'z')" name="vecInertiaMultiplier__Z"
+                                        class="form-control text-center my-2" step="0.001" value="1.6"
+                                        id="vecInertiaMultiplier__ZInput">
+                                    <p>这些数值表示车辆在转弯时候的惯性系数，数值越大，在对应方向上移动的时候加速就越慢。</p>
+									<p>X 表示横向移动，Y 表示前进和后退，Z 表示左右转向，适当的给漂移车增加 Z 值可以提高稳定性。</p>
                                 </div>
                             </div>
                         </div>
@@ -299,16 +333,15 @@
             </div>
             <div class="pb-5  tab-pane fade" id="engine" role="tabpanel" aria-labelledby="engine-tab">
                 <div class="border mt-3">
-                    <h3 class="text-center py-1">Engine</h3>
-                    <p class="px-5 text-center">The moving force of your vehicle, this set of values govern details
-                        about how different bits of the engine will behave.
-                        <br>Works in close relationswhip with Transmission.</p>
+                    <h3 class="text-center py-1">引擎</h3>
+                    <p class="px-5 text-center">引擎是让你的车辆动起来的关键，这些数值控制着发动机不同部分的细节。
+                        <br>这些数值与变速箱有很大关联。</p>
 
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Power / Acceleration</h3>
+                                <h3 class="text-center">动力 / 加速能力</h3>
                                 <p class="text-muted text-center">fInitialDriveForce</p>
                                 <canvas id="powerChart" width="100" height="75" class="mx-auto"></canvas>
 
@@ -324,22 +357,17 @@
                                     name="fInitialDriveForce">
                                 <!-- <p class=" text-center">Acceleration: <span class="text-danger"
                                         id="fInitialDriveForceExpl"></span> mph per second in 1º gear.</p>-->
-                                <p>Also called engine power, it dictates the target acceleration the engine is aiming
-                                    for, measured in
-                                    G-Forces. Wheel grip may not be able to cope with it, however.
-                                </p>
-                                <p>Gearing modulates this value in ratios to translate it into torque, which is the
-                                    final acceleration the vehicle will experience.</p>
+                                <p>也叫马力，它决定了发动机的目标加速度，以 G 力为单位。但是车轮的抓地力可能无法承受过大的动力。</p>
+                                <p>变速箱按照比例调节这个数值，将其转换为扭矩，成为车辆的最终加速度。</p>
                                 <hr>
-                                <p>Electric vehicles bypass this entirely, starting with x5 torque whith drains to x1 at
-                                    the top speed.</p>
+                                <p>电动车不会按照此数值计算，初始扭矩为 x5 倍，在达到最高速度时变为 x1。</p>
 
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Drive inertia</h3>
+                                <h3 class="text-center">飞轮惯性</h3>
                                 <p class="text-muted text-center">fDriveInertia</p>
 
 
@@ -353,20 +381,10 @@
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.001" id="fDriveInertiaInput"
                                     name="fDriveInertia">
-                                <p class=" text-center">The vehicle will go from idle to redline in <span
-                                        class="text-danger" id="fDriveInertiaExpl"></span>s assuming full throttle.</p>
+                                <p class=" text-center">引擎转速可以在 <span class="text-danger" id="fDriveInertiaExpl"></span>s 内从怠速升高到红线</p>
                                 <hr>
-                                <p>How responsive the engine revs will be to throttle control. It is measured in Higher
-                                    values will result
-                                    in faster RPM acceleration and deceleration, while lower values will result in more
-                                    sluggish RPMs. </p>
-
-                                <p>
-                                    Works similar to how a flywheel acts in real-life vehicles, storing drive momentum
-                                    from the engine. A lighter flywheel can react faster to engine RPM changes with it's
-                                    lack of weight, while heavier flywheels have higher momentum force which takes more
-                                    engine power to influence.
-                                </p>
+                                <p>这个数值控制了发动机的油门响应速度，较高的数值意味着转速更快到达红线，较低的数值则相反。</p>
+                                <p>它的原理和现实中的发动机飞轮类似，比较轻的飞轮可以对发动机转速变化做出更快的反应，而较重的飞轮则会慢一些，同时转速下降也会慢一些。</p>
                             </div>
 
                         </div>
@@ -374,25 +392,26 @@
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
 
-                                <h3 class="text-center">Top Speed</h3>
+                                <h3 class="text-center">最高速度</h3>
                                 <p class="text-muted text-center">fInitialDriveMaxFlatVel</p>
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 custom-range" type="range" value="100" step="1" min="0"
-                                        max="200" oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelSlider"
+                                        max="360" oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelSlider"
                                         name="fInitialDriveMaxFlatVel">
-                                    <span>200</span>
+                                    <span>360</span>
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelInput"
                                     name="fInitialDriveMaxFlatVel">
-                                <p class="text-center">The vehicle's last gear will top at <span class="text-danger"
-                                        id="fInitialDriveMaxFlatVelExpl">40</span> mph.</p>
+                                <p class="text-center">车辆在最高档位的时候可以达到 <span class="text-danger"
+                                        id="fInitialDriveMaxFlatVelExpl">40</span> mph</p>
                                 <hr>
 
-                                <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
-                                <p>Keep in mind that gearing will stretch over this 'length'.</p>
+                                <p>引擎所能达到的最高速度，超过这个速度以后发动机功率会大幅度降低。</p>
+                                <p>变速箱会影响车辆最高速度，因此车辆不一定能完全达到这个速度。</p>
+								<p>漂移车请始终保持这个数值为 360（拉到最大）。</p>
                             </div>
 
                         </div>
@@ -401,15 +420,14 @@
             </div>
             <div class="pb-5 tab-pane fade" id="transmission" role="tabpanel" aria-labelledby="transmission-tab">
                 <div class="border mt-3">
-                    <h3 class="text-center py-1">Transmission</h3>
-                    <p class="px-5 text-center">Together with the Engine, the transmission settings define the power
-                        output of your vehicle.</p>
+                    <h3 class="text-center py-1">传动系统</h3>
+                    <p class="px-5 text-center">变速箱配合引擎来决定车辆的最终动力输出</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
 
-                                <h3 class="text-center">Nº of Gears</h3>
+                                <h3 class="text-center">档位数量</h3>
                                 <p class="text-muted text-center">nInitialDriveGears</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -421,18 +439,17 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="nInitialDriveGearsInput"
                                     name="nInitialDriveGears">
-                                <p>Number of gears at stock.</p>
+                                <p>车辆在原厂状态下有多少个档位。</p>
                                 <hr>
-                                <p>As gears modulate the <i>fInitialDriveForce</i> up until
-                                    <i>fInitialDriveMaxFlatVel</i>, keepin a reasonably number of gears for your top
-                                    speed is reccomended.</p>
+                                <p>模拟齿轮，根据 <i>fInitialDriveForce</i> 来加速到
+                                    <i>fInitialDriveMaxFlatVel</i>，建议设置合理的档位来达到最高速度。</p>
 
-                                <p>Remember Transmission upgrades add one gear total.</p>
+                                <p>在改车王升级变速箱会增加一个档位。</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Shift times</h3>
+                                <h3 class="text-center">换挡时间</h3>
                                 <p class="text-muted text-center">fClutchChangeRateScaleUpShift</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -444,8 +461,8 @@
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.05" id="fClutchChangeRateScaleUpShiftInput"
                                     name="fClutchChangeRateScaleUpShift">
-                                <p class=" mx-auto text-center">The vehicle will take <span class="text-danger"
-                                        id="fClutchChangeRateScaleUpShiftExpl"></span>s to shift from gear to gear.</p>
+                                <p class=" mx-auto text-center">车辆需要 <span class="text-danger"
+                                        id="fClutchChangeRateScaleUpShiftExpl"></span>s 来换挡</p>
                                 <hr>
                                 <p></p>
                                 <p class="text-muted text-center">fClutchChangeRateScaleDownShift</p>
@@ -464,7 +481,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Power Bias</h3>
+                                <h3 class="text-center">动力分配</h3>
                                 <p class="text-muted text-center">fDriveBiasFront</p>
 
                                 <div class="d-flex align-content-center">
@@ -476,9 +493,8 @@
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fDriveBiasFrontInput" name="fDriveBiasFront">
-                                <p>Defines how the power from <i>fInitialDriveForce</i> is distributed between the
-                                    axles.</p>
-                                <p>0.0 implies a fully RWD setup, with will only deliver power to the rear wheels.</p>
+                                <p>这个数值用于定义要分配多少动力给前轮，数值越大，分配给前轮的动力越多。</p>
+                                <p>0.0 表示完全后轮驱动，0.5 为四轮驱动，1.0 为前轮驱动。</p>
 
 
                             </div>
@@ -489,17 +505,15 @@
             </div>
             <div class="pb-5 tab-pane fade" id="brakes" role="tabpanel" aria-labelledby="brakes-tab">
                 <div class="border mt-3">
-                    <h3 class="text-center py-1">Brakes</h3>
-                    <p class="px-5 text-center">Brakes are one of the main defining factors of the performance of your
-                        vehicle. <br>This value should complement both the vehicle's power and traction, so as to keep a
-                        coherent balance.
-                        <br>Unless you have reasons for it not to.</p>
+                    <h3 class="text-center py-1">刹车</h3>
+                    <p class="px-5 text-center">刹车也是决定车辆性能的主要因素之一。<br>刹车通常是配合动力以及抓地力来修改的，建议让这些数值保持平衡以获得最佳的操作手感。
+                        <br>当然你也可以随便修改……</p>
 
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Brake Strength</h3>
+                                <h3 class="text-center">刹车力度</h3>
                                 <p class="text-muted text-center">fBrakeForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -510,21 +524,20 @@
                                 </div>
                                 <input class="form-control text-center my-2" type="number" value="6" step="0.01"
                                     oninput="applyValueChange(this) " id="fBrakeForceInput" name="fBrakeForce">
-                                <p class="text-center">Target deceleration is 60-0 mph in ~<span class="text-danger"
-                                        id="fBrakeForceExpl"></span>s.</p>
-                                <p>How many Gs of deceleration are applied to each wheel.</p>
+                                <p class="text-center">车辆从 100 减速到 0km/h 大约要 <span class="text-danger"
+                                        id="fBrakeForceExpl"></span>s</p>
+                                <p>这个数值决定了刹车时要给每个轮子分配多大的 G 力。</p>
                                 <hr>
 
                                 <p>
-                                    <i>fTractionCurveMax</i> and <i>fBrakeForce</i> are closely related. Assuming
-                                    perfect balance, a fourth of brake is enough to make each wheel lockup.
+                                    <i>fTractionCurveMax</i> 和 <i>fBrakeForce</i> 密切相关。假设两个数值完美平衡，25% 的刹车力度足以使每个轮子抱死。
                                 </p>
 
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Brake Bias</h3>
+                                <h3 class="text-center">刹车分配</h3>
                                 <p class="text-muted text-center">fBrakeBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -537,17 +550,15 @@
                                     oninput="applyValueChange(this)" id="fBrakeBiasFrontInput" name="fBrakeBiasFront">
 
                                 <p class="text-center"><span class="" id="fBrakeBiasFrontExpl"></span></p>
-                                <p>Distribution of the brake strength between the axles.</p>
+                                <p>这个数值决定了刹车时要分配多少的力度给前轮</p>
                                 <p>
-                                    Usually, the best balance is between 0.55 and 0.7 for best braking capabilities, as
-                                    it accounts for the weight transfer that ensues when braking.<br><br>Vehicles with
-                                    more body lean typically need more balance to the front.
+                                    通常来说最佳平衡点位于 0.55 到 0.7 之间，刹车效果最佳，因为它考虑了刹车后的重心转移。<br><br>车身倾斜比较严重的车辆通常需要让前轮刹车力度大一些。
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Handbrake Strength</h3>
+                                <h3 class="text-center">手刹力度</h3>
                                 <p class="text-muted text-center">fHandBrakeForce</p>
 
                                 <div class="d-flex align-content-center">
@@ -559,7 +570,7 @@
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fHandBrakeForceInput" name="fHandBrakeForce">
-                                <p>Similar to <i>fBrakeForce</i>, but is only applied to the rear axle(s). </p>
+                                <p>和刹车力度 <i>fBrakeForce</i>一样，但是仅作用于后轮。</p>
                             </div>
                         </div>
                     </div>
@@ -567,16 +578,14 @@
             </div>
             <div class="pb-5 tab-pane fade" id="traction" role="tabpanel" aria-labelledby="traction-tab">
                 <div class="border mt-3">
-                    <h3 class="text-center py-1">Traction</h3>
-                    <p class="px-5 text-center">Traction is the main limiter of power and braking ability, and has to be
-                        able to handle both; otherwise your vehicle may suffer wheelspin/wheel lock.
-                        <br>However, these can also be treated as features and not defects, being part of the vehicle's
-                        personality.</p>
+                    <h3 class="text-center py-1">牵引力</h3>
+                    <p class="px-5 text-center">牵引力（抓地力）是限制动力和刹车的主要方法，必须能同时限制二者，否则车辆可能会发生车轮打滑或抱死。
+                        <br>当然，这些也可以看成是特性而不是缺点，例如漂移车往往需要较低的抓地力来实现漂移。</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Tire Grip</h3>
+                                <h3 class="text-center">轮胎牵引力</h3>
                                 <p class="text-muted text-center">fTractionCurveMax</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -600,21 +609,16 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="0.025"
                                     oninput="applyValueChange(this) " id="fTractionCurveMinInput"
                                     name="fTractionCurveMin">
-                                <p>Maximum and minimum G's the vehicle's wheels are able to pull.</p>
+                                <p>车轮能够牵引的最大和最小 G 力。</p>
                                 <hr>
-                                <p>
-                                    In V, grip is represented as how much the vehicle's tires are able to accelerate or
-                                    decelerate the car's body, as a whole.
-                                </p>
-                                <p>
-                                    These values are constantly changed around by context, like suspension pressure,
-                                    surface the tire is driving on, etcetera.
-                                </p>
+                                <p>在 GTA5 中，抓地力表示车辆轮胎能够加速或减速车辆的能力。这些值会随着环境的变化而不断改变，比如悬挂压力、当前轮胎行驶的路面材质等等。<br><br>
+								对于漂移车来说，通常使用的数据是 0.84 Max，1.45 Min，车辆会拥有不错的提速能力。
+								</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Traction Curve</h3>
+                                <h3 class="text-center">牵引力曲线</h3>
                                 <p class="text-muted text-center">fTractionCurveLateral</p>
                                 <div class="d-flex align-content-center">
                                     <span>10</span>
@@ -626,22 +630,16 @@
                                 <input class="form-control text-center my-2" step="0.25" type="number"
                                     oninput="applyValueChange(this)" id="fTractionCurveLateralInput"
                                     name="fTractionCurveLateral">
-                                <p>Slide angle at which the car will enjoy the best grip available.</p>
+                                <p>设定角度可以让车辆得到最佳的抓地力。</p>
                                 <hr>
-                                <p>
-                                    The vehicle will tend to stay below half of this value.
-
-                                </p>
-                                <p>
-                                    It is reccomended to keep it at default 22.5 on most vehicles, though Sports and
-                                    Supercars can have it as low as 18º if you so desire, making them stay more
-                                    straight. Over 24º is not reccomended save for the slidiest cars, like old muscles.
+                                <p>车辆通常会保持在该数值的一半以下。</p>
+                                <p>对于大多数车辆来说，建议保持在 22.5，运动跑车和超级跑车可以设置为 18º，让它更直。除了一些老旧的肌肉车外，不建议超过 24º。
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Tire Grip Bias</h3>
+                                <h3 class="text-center">牵引力分配</h3>
                                 <p class="text-muted text-center">fTractionBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -653,22 +651,18 @@
                                 <input class="form-control text-center my-2" step="0.005" type="number"
                                     oninput="applyValueChange(this)" id="fTractionBiasFrontInput"
                                     name="fTractionBiasFront">
-                                <p class="text-center">Grip balance:<br> <span class="text-primary"
+                                <p class="text-center">抓地力平衡：<br> <span class="text-primary"
                                         id="fTractionBiasFrontExpl"></span></p>
                                 <hr>
-                                <p>
-                                    This value perfectly describes situations where the front and rear axles have
-                                    different kinds of wheels, be it the compounds are different, or the tire width is
-                                    different.<br><br> Very useful for dragsters and high performance cars who come with
-                                    changes like these.
-                                </p>
+                                <p>这个数值完美地模拟了前后轴安装了不同类型车轮的情况，例如不同的材料，不同的宽度。它决定了要分配多少抓地力给前轮。<br><br>
+								对于漂移车来说可以有效解决推头和甩尾的问题，通常推荐在 0.46 - 0.48 之间，数值越大越容易 spin。</p>
                             </div>
                         </div>
                     </div>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Offroad Traction Loss</h3>
+                                <h3 class="text-center">越野牵引力</h3>
                                 <p class="text-muted text-center">fTractionLossMult</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -680,18 +674,15 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fTractionLossMultInput"
                                     name="fTractionLossMult">
-                                <p>How exaggerated the traction loss is for this vehicle.</p>
-                                <p>
-                                    A value of 1.0 makes the car lose grip on each surface as expected by the game.
-                                    Below 1.0 you lose less grip than normal, over 1.0 you lose more grip than normal.
-                                    <br><br>High end cars can have up to 1.5 or so before the traction loss of certain
-                                    surfaces ends up making the car have negative grip.
+                                <p>设定当车辆行驶在非水泥和柏油路上时会损失多少抓地力。</p>
+                                <p>正常来说是 1.0，如果低于 1.0 时，损失的抓地力会较小，大于 1.0 时，损失的抓地力会较大。
+                                    <br><br>超级跑车通常会损失 1.5 左右的抓地力，请注意：过高的数值可能会产生负抓地力。
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Low Speed Burnout Mult</h3>
+                                <h3 class="text-center">低速损失牵引力</h3>
                                 <p class="text-muted text-center">fLowSpeedTractionLossMult</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -703,23 +694,24 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fLowSpeedTractionLossMultInput"
                                     name="fLowSpeedTractionLossMult">
-                                <p>How exaggerated the fake burnout griploss is for this vehicle.</p>
+                                <p>设置车辆在低速状态时会损失多少抓地力，可以模拟出大扭矩车辆起步烧胎的情况。</p>
+								<p>请注意：过大的数值可能会导致负抓地力。</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Max Steer Angle</h3>
+                                <h3 class="text-center">最大转向角度</h3>
                                 <p class="text-muted text-center">fSteeringLock</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
-                                        max="50" oninput="applyValueChange(this)" id="fSteeringLockSlider"
+                                        max="75" oninput="applyValueChange(this)" id="fSteeringLockSlider"
                                         name="fSteeringLock">
-                                    <span>50</span>
+                                    <span>75</span>
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fSteeringLockInput" name="fSteeringLock">
-                                <p>Maximum steering angle for the vehicle.</p>
+                                <p>车辆的最大转向角度，常见漂移数据的转向角度都是 55 度左右，某些大角度数据可能会到 65 度，最高不超过 75 度。</p>
                             </div>
                         </div>
                     </div>
@@ -727,14 +719,13 @@
             </div>
             <div class="pb-5 tab-pane fade" id="suspension" role="tabpanel" aria-labelledby="suspension-tab">
                 <div class="border mt-3">
-                    <h3 class="text-center py-1">Suspension</h3>
-                    <p class="px-5 text-center">Stiffer, softer, loose, tight.<br> This section governs how your car
-                        floats above its wheels.</p>
+                    <h3 class="text-center py-1">悬挂系统</h3>
+                    <p class="px-5 text-center">悬挂对于车辆的操作手感起到很大的影响，太硬或者太软的悬挂都会造成漂移手感不佳。<br>因此合理设置悬挂可以让你的车更好开。</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Spring Strength</h3>
+                                <h3 class="text-center">弹簧硬度</h3>
                                 <p class="text-muted text-center">fSuspensionForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -746,12 +737,12 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fSuspensionForceInput"
                                     name="fSuspensionForce">
-                                <p>Spring strength.</p>
+                                <p>设置弹簧的硬度，通常在 1.5 到 2.5 之间，漂移车推荐较低的硬度以获得最佳的响应。</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Spring Dampen Strength</h3>
+                                <h3 class="text-center">弹簧阻尼硬度</h3>
                                 <p class="text-muted text-center">fSuspensionCompDamp</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -775,12 +766,12 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="0.025"
                                     oninput="applyValueChange(this) " id="fSuspensionReboundDampInput"
                                     name="fSuspensionReboundDamp">
-                                <p>How strongly the spring strength is dampened when compressing or decompressing.</p>
+                                <p>在压缩或者释放时候弹簧硬度的衰减程度。</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Compression/Decompression Limits</h3>
+                                <h3 class="text-center">弹簧高度限制</h3>
                                 <p class="text-muted text-center">fSuspensionUpperLimit</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -804,14 +795,14 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="0.0025"
                                     oninput="applyValueChange(this) " id="fSuspensionLowerLimitInput"
                                     name="fSuspensionLowerLimit">
-                                <p>Compression upper and lower limits, in meters. Yeah, use centimeters.</p>
+                                <p>弹簧最多可以被压缩或者延长的长度，以米为单位，不建议数值过大，会导致车轮穿模。</p>
                             </div>
                         </div>
                     </div>
                     <div class="row pb-4 px-3">
                         <div class="col-md-6">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Suspension Raise</h3>
+                                <h3 class="text-center">悬挂高度提升</h3>
                                 <p class="text-muted text-center">fSuspensionRaise</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -823,12 +814,12 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="0.025"
                                     oninput="applyValueChange(this) " id="fSuspensionRaiseInput"
                                     name="fSuspensionRaise">
-                                <p>In meters, this raises or lowers the natural stance of the vehicle.</p>
+                                <p>设定要将悬挂提高多少高度，默认为 0，以米为单位，负数可以降低车身。</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Strength Bias</h3>
+                                <h3 class="text-center">弹簧硬度分配</h3>
                                 <p class="text-muted text-center">fSuspensionBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -840,7 +831,7 @@
                                 <input class="form-control text-center my-2" step="0.0025" type="number"
                                     oninput="applyValueChange(this)" id="fSuspensionBiasFrontInput"
                                     name="fSuspensionBiasFront">
-                                <p>Spring strength distribution between the axles of the vehicle.</p>
+                                <p>这个数值可以设定要分配多少弹簧硬度给前轮，数值越大分配越多，0.5 为前后平滑。</p>
                             </div>
                         </div>
                     </div>
@@ -848,16 +839,14 @@
             </div>
             <div class="pb-5 tab-pane fade" id="antiroll" role="tabpanel" aria-labelledby="antiroll-tab">
                 <div class="border mt-3">
-                    <h3 class="text-center py-1">Anti-roll Bars</h3>
-                    <p class="px-5 text-center">The main goal of the Anti-roll Bars is to prevent the car from leaning
-                        too much when taking a corner.<br>
-                        Do keep in mind that the wheels the cars leans into, receive more grip from the pressure, while
-                        the wheels on the other side lose traction.</p>
+                    <h3 class="text-center py-1">防倾杆</h3>
+                    <p class="px-5 text-center">防倾杆的主要作用是防止车辆在转弯时倾斜角度过大。<br>
+                        车辆倾斜的车轮会由于压力获得更大的抓地力，而另一侧的车轮会失去抓地力。</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-6">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Antiroll Strength</h3>
+                                <h3 class="text-center">防倾杆强度</h3>
                                 <p class="text-muted text-center">fAntiRollBarForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -869,12 +858,12 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fAntiRollBarForceInput"
                                     name="fAntiRollBarForce">
-                                <p>How strongly the antiroll bars try to keep the vehicle from leaning.</p>
+                                <p>设定防倾杆在防止车辆倾斜时的强度</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Strength Bias</h3>
+                                <h3 class="text-center">防倾杆分配</h3>
                                 <p class="text-muted text-center">fAntiRollBarBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -886,7 +875,7 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fAntiRollBarBiasFrontInput"
                                     name="fAntiRollBarBiasFront">
-                                <p>Distribution of the antiroll bar strength between the car axles.</p>
+                                <p>设定前轮的防倾杆要分配多少强度，数值越大分配越多，0.5 是前后平衡。</p>
                             </div>
                         </div>
                     </div>
@@ -894,7 +883,7 @@
                     <div class="row pb-4 px-3">
                         <div class="col-md-6">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Rollcentre - Front</h3>
+                                <h3 class="text-center">前倾斜中心点</h3>
                                 <p class="text-muted text-center">fRollCentreHeightFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -906,13 +895,12 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fRollCentreHeightFrontInput"
                                     name="fRollCentreHeightFront">
-                                <p>Relative to the model bottom, defines where the pivot point is. This is used for
-                                    leaning.</p>
+                                <p>这个数值相对于车辆模型底部，设定倾斜中心点在哪里。</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Rollcentre - Back</h3>
+                                <h3 class="text-center">后倾斜中心点</h3>
                                 <p class="text-muted text-center">fRollCentreHeightRear</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -924,16 +912,151 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fRollCentreHeightRearInput"
                                     name="fRollCentreHeightRear">
-                                <p>Relative to the model bottom, defines where the pivot point is. This is used for
-                                    leaning.</p>
+                                <p>这个数值相对于车辆模型底部，设定倾斜中心点在哪里。</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+			
+			<div class="pb-5 tab-pane fade" id="flags" role="tabpanel" aria-labelledby="flags-tab">
+                <div class="border mt-3">
+                    <h3 class="text-center py-1">Flags</h3>
+                    <p class="px-5 text-center">Flags 主要用于控制车辆的行为和物理特性，不同的 Flags 组合可以获得特殊的操作手感。</p>
+                    <hr>
+					<div class="row pb-4 px-3">
+						<div class="col-xl-6 text-center bg-whitesmoke mx-auto" id="modelFlagsSection">
+							<!-- <div class="alert alert-secondary mx-5" role="alert"> -->
+							<div class="text-center">
+								<h3 class="text-center mt-3">模型行为 Flags</h3>
+								<p class="text-muted text-center">strModelFlags</p>
+							</div>
+							<input id="modelFlagsForm" type="hidden" value="0" />
+							<div id="table" class="border border-gray bg-light container-fluid" style="font-size: 14px;">
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">厢型车<br>IS_VAN</div>
+									<div class="col-sm-3 py-1 align-middle">公交车<br>IS_BUS</div>
+									<div class="col-sm-3 py-1 align-middle">低底盘车<br>IS_LOW</div>
+									<div class="col-sm-3 py-1 align-middle">大型车<br>IS_BIG</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">防抱死系统<br>ABS_STD</div>
+									<div class="col-sm-3 py-1 align-middle">可选防抱死<br>ABS_OPTION</div>
+									<div class="col-sm-3 py-1 align-middle">替换防抱死系统<br>ABS_ALT_STD</div>
+									<div class="col-sm-3 py-1 align-middle">可选替换防抱死<br>ABS_ALT_OPTION</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">没有车门<br>NO_DOORS</div>
+									<div class="col-sm-3 py-1 align-middle">前后座椅<br>TANDEM_SEATS</div>
+									<div class="col-sm-3 py-1 align-middle">坐在船里<br>SIT_IN_BOAT</div>
+									<div class="col-sm-3 py-1 align-middle">具有轨道<br>HAS_TRACKS</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">没有排气管<br>NO_EXHAUST</div>
+									<div class="col-sm-3 py-1 align-middle">两个排气管<br>DOUBLE_EXHAUST</div>
+									<div class="col-sm-3 py-1 align-middle">第一人称不能向后看<br>NO1FPS_LOOK_BEHIND</div>
+									<div class="col-sm-3 py-1 align-middle">没有车门时可以进入<br>CAN_ENTER_IF_NO_DOOR</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">前扭力梁悬挂<br>AXLE_F_TORSION</div>
+									<div class="col-sm-3 py-1 align-middle">前直桥悬挂<br>AXLE_F_SOLID</div>
+									<div class="col-sm-3 py-1 align-middle">前麦弗逊悬挂<br>AXLE_F_MCPHERSON</div>
+									<div class="col-sm-3 py-1 align-middle">将人物附加到车身<br>ATTACH_PED_TO_BODYSHELL</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">后扭力梁悬挂<br>AXLE_R_TORSION</div>
+									<div class="col-sm-3 py-1 align-middle">后直桥悬挂<br>AXLE_R_SOLID</div>
+									<div class="col-sm-3 py-1 align-middle">后麦弗逊悬挂<br>AXLE_R_MCPHERSON</div>
+									<div class="col-sm-3 py-1 align-middle">不强制清理地面<br>DONT_FORCE_GRND_CLEARANCE</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">不渲染转向动画<br>DONT_RENDER_STEER</div>
+									<div class="col-sm-3 py-1 align-middle">车轮不会爆裂<br>NO_WHEEL_BURST</div>
+									<div class="col-sm-3 py-1 align-middle">无敌载具<br>INDESTRUCTIBLE</div>
+									<div class="col-sm-3 py-1 align-middle">两个前轮<br>DOUBLE_FRONT_WHEELS</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">遥控车<br>RC</div>
+									<div class="col-sm-3 py-1 align-middle">两个后轮<br>DOUBLE_RWHEELS</div>
+									<div class="col-sm-3 py-1 align-middle">车轮不会损坏<br>MF_NO_WHEEL_BREAK</div>
+									<div class="col-sm-3 py-1 align-middle">掀背车<br>IS_HATCHBACK</div>
+								</div>
+							</div>
+							<div class="border bg-light mt-2">
+								<h3 class="margin-bottom-16">计算结果</h3>
+								<div class="form-control mb-2 mt-2 mx-auto text-center border d-inline container-fluid">&lt;strModelFlags&gt;<span class="text-muted"><strong id="modelFlags">00000000</strong></span>&lt;&frasl;strModelFlags&gt;</div><br>
+								<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">请注意，某些 flag 会被其他 flag 覆盖。<br>例如：<i>IS_BUS</i> 会覆盖 <i>IS_VAN</i>。</div>
+							</div>
+						</div>
+						<div class="col-xl-6 text-center bg-whitesmoke mx-auto " id="handlingFlagsSection">
+							<!-- <div class="alert alert-secondary mx-5" role="alert"> -->
+							<div class="text-center">
+								<h3 class="text-center mt-3">物理行为 Flags</h3>
+								<p class="text-muted text-center">strHandlingFlags</p>
+							</div>
+							<input id="handlingFlagsForm" type="hidden" value="0" />
+							<div id="table" class=" border border-gray bg-light container-fluid" style="font-size: 14px;">
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">平滑压缩<br>SMOOTH_COMPRESN</div>
+									<div class="col-sm-3 py-1 align-middle">减少模型重量<br>REDUCED_MOD_MASS</div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">没有手刹<br>NO_HANDBRAKE</div>
+									<div class="col-sm-3 py-1 align-middle">后轮转向<br>STEER_REARWHEELS</div>
+									<div class="col-sm-3 py-1 align-middle">后轮手刹和转向<br>HB_REARWHEEL_STEER</div>
+									<div class="col-sm-3 py-1 align-middle">全轮转向<br>STEER_ALL_WHEELS</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">松油门时轮子空转<br>FREEWHEEL_NO_GAS</div>
+									<div class="col-sm-3 py-1 align-middle">不能倒车<br>NO_REVERSE</div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">无级变速箱<br>CVT</div>
+									<div class="col-sm-3 py-1 align-middle">额外车轮边界<br>ALT_EXT_WHEEL_BOUNDS_BEH</div>
+									<div class="col-sm-3 py-1 align-middle">高速时不提升边界<br>DONT_RAISE_BOUNDS_AT_SPEED</div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">减少雪地印记<br>LESS_SNOW_SINK</div>
+									<div class="col-sm-3 py-1 align-middle">轮胎可以打滑<br>TYRES_CAN_CLI</div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">越野车<br>OFFROAD_ABILITY</div>
+									<div class="col-sm-3 py-1 align-middle">越野车2<br>OFFROAD_ABILITY2</div>
+									<div class="col-sm-3 py-1 align-middle">提高侧边轮胎冲击<br>HF_TYRES_RAISE_SIDE_IMPACT_THRESHOLD</div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">启用 LEAN（未知）<br>ENABLE_LEAN</div>
+									<div class="col-sm-3 py-1 align-middle">重装甲<br>HEAVYARMOUR</div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+									<div class="col-sm-3 py-1 align-middle">装甲车<br>ARMOURED</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3 py-1 align-middle">水中自动回正<br>SELF_RIGHTING_IN_WATER</div>
+									<div class="col-sm-3 py-1 align-middle">更大的扶正力<br>IMPROVED_RIGHTING_FORCE</div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+									<div class="col-sm-3 py-1 align-middle"></div>
+								</div>
+							</div>
+							<div class="border bg-light mt-2">
+								<h3 class="margin-bottom-16">计算结果</h3>
+								<div class="form-control mb-2 mt-2 mx-auto text-center border  d-inline container-fluid">&lt;strHandlingFlags&gt;<span class="text-muted"><strong id="handlingFlags">00000000</strong></span>&lt;&frasl;strHandlingFlags&gt; </div><br>
+								<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">请注意，某些 flag 会被其他 flag 覆盖。<br>例如：<i>STEER_REARWHEELS</i> 会覆盖 <i>STEER_ALL_WHEELS</i>。</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+			
             <div class="pb-5  tab-pane fade" id="raw" role="tabpanel" aria-labelledby="raw-tab">
-                <div class="alert alert-warning mt-3" role="alert">Don't edit the values in here. This area serves only
-                    as a preview of the file.</div>
+                <div class="alert alert-warning mt-3" role="alert">不要在这里编辑数据，这个地方仅用于预览文件内容。</div>
                 <textarea type="textarea" value="" id="handlingFileDisplay" style="min-height:1000px;"
                     class="mt-5 w-100 bg-light text-success" disabled></textarea>
 
@@ -945,19 +1068,12 @@
 
                     <div class="border mt-3">
 
-                        <h3 class="text-center py-1">Metrics</h3>
+                        <h3 class="text-center py-1">单位</h3>
                         <div class="px-5 mx-5">
-                            <p>
-                                This editor makes an effort of translating some handling items to real world
-                                measurements, depicted in <span class="text-danger">red</span> on them.
-                                For transparency and ease of fact-checking, this section documents and details the math
-                                used to get the Ingame metrics.
-
-                            </p>
-                            <p>I then just use standard conversions to get the <span class="text-danger">mph</span>
-                                equivalents for the editor section.</p>
+                            <p>这个编辑器尝试将一些 handling 数据转换为真实的测量结果，并且以 <span class="text-danger">红色</span> 来显示它们。同时为了方便做参考和数值设定，这个页面记录并说明了用于获取游戏内数据单位的具体数字，乘数和算法等。</p>
+							<p>然后编辑器根据这些标准来转换一些数值，例如 <span class="text-danger">mph</span>。</p>
                             <small class="float-right px-1 text-muted">
-                                <span class="text-primary"><i>Speed</i></span> is measured in m/s.
+                                <span class="text-primary"><i>速度</i></span> 以 m/s 为单位。
                             </small>
                         </div>
                         <div class="mx-5">
@@ -965,61 +1081,59 @@
                             <table class="table border">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Handling item</th>
-                                        <th scope="col">File metric</th>
-                                        <th scope="col">Ingame metric</th>
-                                        <th scope="col">Math</th>
+                                        <th scope="col">Handling 类型</th>
+                                        <th scope="col">文件单位</th>
+                                        <th scope="col">游戏单位</th>
+                                        <th scope="col">公式</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>fInitialDriveForce</td>
-                                        <td>Acceleration (G-Forces)</td>
-                                        <td>Acceleration (G-Forces)</td>
-                                        <td class="text-primary">fInitialDriveForce * Ratio of Current Gear</td>
+                                        <td>加速度 (G 力)</td>
+                                        <td>加速度 (G 力)</td>
+                                        <td class="text-primary">fInitialDriveForce * 当前档位传动比</td>
                                     </tr>
                                     <tr>
                                         <td>fDownforceModifier</td>
-                                        <td>Multiplier</td>
-                                        <td>Grip gain (G-Forces)</td>
-                                        <td class="text-primary">(0 - 0.035) > (0 - 90% of fInitialDriveMaxFlatVel)<br>*
-                                            fDownforceModifier * Nº of Wheels</td>
+                                        <td>乘数</td>
+                                        <td>抓地力提高 (G 力)</td>
+                                        <td class="text-primary">(0 - 0.035) > (fInitialDriveMaxFlatVel 的 0 - 90%)<br>*
+                                            fDownforceModifier * 车轮数量</td>
                                     </tr>
                                     <tr>
                                         <td>fInitialDragCoeff</td>
-                                        <td>Multiplier</td>
-                                        <td>Air Resistance (G-Forces)</td>
-                                        <td class="text-primary">(Speed * (fInitialDragCoeff * 0.0001))^2</td>
+                                        <td>乘数</td>
+                                        <td>空气阻力 (G 力)</td>
+                                        <td class="text-primary">(速度 * (fInitialDragCoeff * 0.0001))^2</td>
                                     </tr>
                                     <tr>
                                         <td>fDriveInertia</td>
-                                        <td>Multiplier</td>
-                                        <td>Seconds</td>
+                                        <td>乘数</td>
+                                        <td>秒</td>
                                         <td class="text-primary"> 1 / fDriveInertia</td>
                                     </tr>
                                     <tr>
                                         <td>fInitialDriveMaxFlatVel</td>
-                                        <td>Speed</td>
-                                        <td>Kilometers per hour</td>
+                                        <td>速度</td>
+                                        <td>公里每小时</td>
                                         <td class="text-primary">fInitialDriveMaxFlatVel / 0.75</td>
                                     </tr>
                                     <tr>
                                         <td>fClutchChangeRateScaleUpShift</td>
-                                        <td>Multiplier</td>
-                                        <td>Seconds</td>
+                                        <td>乘数</td>
+                                        <td>秒</td>
                                         <td class="text-primary">1 / fClutchChangeRateScaleUpShift</td>
                                     </tr>
                                     <tr>
                                         <td>fBrakeForce</td>
-                                        <td>Decceleration (G-Forces) per wheel</td>
-                                        <td>Decceleration (G-Forces) per wheel</td>
-                                        <td class="text-primary">Speed / (fBrakeForce * Number of wheels)</td>
+                                        <td>每个车轮的减速能力 (G 力)</td>
+                                        <td>每个车轮的减速能力 (G 力)</td>
+                                        <td class="text-primary">速度 / (fBrakeForce * 车轮数量)</td>
                                 </tbody>
                             </table>
                             <div class="alert alert-info w-50 mx-auto" role="alert">
-                                Most of the new math has been figured out using SHVDN to script the math ingame, drawing
-                                helpful data like torque per wheel from the game memory itself. All has been
-                                confirmed ingame, in Singleplayer - feel free to do your own testing.
+                                大多数新的数字都是用 SHVDN 从游戏内存中提取的，例如每个轮子的扭矩。所有数据都在我的游戏里测试过，你可以在你的游戏中随意测试你的数据。
                             </div>
                         </div>
                     </div>
@@ -1032,34 +1146,27 @@
 
                     <div class="border mt-3">
 
-                        <h3 class="text-center py-1">Mass comparer</h3>
+                        <h3 class="text-center py-1">数据比较</h3>
                         <div class="w-50 mx-auto">
-                            <p>
-                                This simple tool displays the main performance values of any given handlings you feed
-                                it, for ease of comparison. It is not related to the rest of the webpage and will not
-                                edit the original loaded file.
-
-                            </p>
+                            <p>这个简单的工具将会显示你输入的任何 handling 文件所定义的性能值，以便用于比较，它和本网页其他部分无关，也不会对你编辑的数据产生改动。</p>
                             <div class="mx-5 mb-1">
                                 <div class="row">
                                     <div class="col">
-                                        <label for="masscomparerloader">Drop the files to compare here.</label>
+                                        <label for="masscomparerloader">选择一个 handling 文件</label>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input " id="masscomparerloader"
-                                                multiple>
-                                            <label class="custom-file-label" for="masscomparerloader">Select the
-                                                files</label><small id="searchHelp" class="form-text text-muted">You can
-                                                also drop multiple files from OpenIV.</small>
+                                                multiple accept=".meta,.xml">
+                                            <label class="custom-file-label" for="masscomparerloader">选择文件</label>
+											<small id="searchHelp" class="form-text text-muted">也支持同时选择多个文件</small>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <form class="mx-auto">
                                             <div class="form-group">
-                                                <label for="search">Enter filters here. </label>
+                                                <label for="search">输入过滤器</label>
                                                 <input type="text" oninput="filterComparerTable(this)" id="searchInput"
                                                     class="form-control">
-                                                <small id="searchHelp" class="form-text text-muted">Example:
-                                                    coquette,comet,blista</small>
+                                                <small id="searchHelp" class="form-text text-muted">只显示指定的模型，例如：fds1452,s14,s15</small>
                                             </div>
                                         </form>
                                     </div>
@@ -1070,7 +1177,7 @@
 
                         <div class="mx-5">
                             <small class="float-right px-1 text-muted">
-                                <i>Click on the table headers to sort by that row.</i>
+                                <i>可以通过点击表头来排序</i>
                             </small>
                             <table id="tablecompare" class="table w-75 mx-auto border">
                                 <thead>
@@ -1154,32 +1261,29 @@
             </div>
 
             <div class="bg-light border">
-                <h3 class="text-center">Comparisons</h3>
+                <h3 class="text-center">比较器</h3>
                 <hr>
                 <div class="w-25 mx-auto mb-5">
-                    <p>You can add a comparison item for in the graphs by uploading another handling file here.</p>
+                    <p>你可以在这里上传另一个 handling 文件，用于和当前编辑的 handling 做比较。</p>
                     <div class="custom-file">
 
-                        <input type="file" class="custom-file-input" id="compparisonHandlingFileLoader">
-                        <label class="custom-file-label" for="compparisonHandlingFileLoader">Select a handling.meta
-                            file...</label>
+                        <input type="file" class="custom-file-input" id="compparisonHandlingFileLoader" accept=".meta,.xml">
+                        <label class="custom-file-label" for="compparisonHandlingFileLoader">选择 handling 文件...</label>
                     </div>
-                    <p class="mt-2">You can drop handling.meta files from OpenIV directly.</p>
+                    <p class="mt-2">编辑器支持直接从 OpenIV 里拖放文件</p>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="text-center">Simplified Stats</h3>
-                        <p class="text-center">The main measures, translated to a 0 - 100 score.</p>
+                        <h3 class="text-center">基本数据</h3>
+                        <p class="text-center">主要数据计算，转换为 0 - 100 分。</p>
                         <canvas id="statsChart" width="100" height="50" class="mx-auto"></canvas>
                     </div>
 
                     <div class="col-md-6">
-                        <h3 class="text-center">Performance Index</h3>
+                        <h3 class="text-center">性能等级</h3>
                         <p class="text-center">
-                            Current vehicle: $<span class="text-danger" id="currentPrice"></span> - Comparison
-                            vehicle:
-                            $<span class="text-primary" id="compPrice"></span>
+                            当前车辆：$<span class="text-danger" id="currentPrice"></span>，对比车辆：$<span class="text-primary" id="compPrice"></span>
                         </p>
 
                         <canvas id="piChart" width="100" height="50" class="mx-auto px-2"></canvas>
@@ -1189,20 +1293,98 @@
             </div>
             <pre id="handlingArray" class="bg-info border d-none"></pre>
             <footer class="my-5">
-                <p class="text-center bg-light border py-3">Stitched up together using from
+                <p class="text-center bg-light border py-3">使用了
                     <strong>Bootstrap</strong>,
-                    <strong>Charts.js</strong> and <strong>Notify.js</strong>.</p>
+                    <strong>Charts.js</strong> 以及 <strong>Notify.js</strong> 构建 | 汉化 &amp; 修改 by <a href="https://github.com/kasuganosoras" target="_blank">Akkariin</a></p>
             </footer>
         </div>
 </body>
 <script>
+	var modelFlags=document.querySelector("#modelFlagsSection").querySelectorAll(".row");
+	var handlingFlags=document.querySelector("#handlingFlagsSection").querySelectorAll(".row");
+	
+	function autoborders() {
+		var autoborder= document.querySelectorAll(".col-sm-3");
+		for (var i = 0; i <= autoborder.length - 1; i++) {
+			autoborder[i].onclick=toggle;
+			$(autoborder[i]).toggleClass("border", true);
+			$(autoborder[i]).toggleClass("text-truncate", true);
+			$(autoborder[i]).toggleClass("border-gray", true);
+		}
+	}
+	////////
 
+	function toggle(e){
+		if($(e.target).text() == "") return;
+		$(e.target).toggleClass("bg-success");
+		$(e.target).toggleClass("text-truncate");
+		calcModelFlags();
+		calcHandlingFlags();
+	}
+	
+	function calcModelFlags(){
+		var flagsfinal="";
+		var arrayRows=document.querySelector("#modelFlagsSection").querySelectorAll(".row");
+		arrayRows= $(arrayRows).toArray().reverse();
+		var n=1;
+		var m=1;
+		var res=0;
 
+		for (var a = 0; a <= arrayRows.length - 1; a++) {
+			var columnas= arrayRows[a].querySelectorAll(".col-sm-3");
+			n=1;
+			m=1;
+			res=0;
+			for (var i = 0; i <= columnas.length - 1; i++) {
+				if($(columnas[i]).hasClass("bg-success")){
+					res += n*(m);
+				}
+				m*=2;
+			}
+
+			if(res==0)flagsfinal += "<span class='text-muted'>"+res.toString(16).toUpperCase()+"<span>";
+			else flagsfinal += "<span class='text-success'>"+res.toString(16).toUpperCase()+"<span>";
+
+			res=0;
+		}
+		document.getElementById('modelFlags').innerHTML=flagsfinal.toString();
+		modelFlagsForm.value = document.getElementById('modelFlags').innerText;
+		rawInput.value = rawInput.value.replace(new RegExp("(strModelFlags>)+[a-z.0-9-]*(<\/strModelFlags>)"), "strModelFlags>" + modelFlagsForm.value + "</strModelFlags>");
+	}
+
+	function calcHandlingFlags(){
+		var flagsfinal="";
+		var arrayRows=document.querySelector("#handlingFlagsSection").querySelectorAll(".row");
+		arrayRows= $(arrayRows).toArray().reverse();
+		var n=1;
+		var m=1;
+		var res=0;
+		for (var a = 0; a <= arrayRows.length - 1; a++) {
+		var columnas= arrayRows[a].querySelectorAll(".col-sm-3");
+		n=1;
+		m=1;
+		res=0;
+		for (var i = 0; i <= columnas.length - 1; i++) {
+			if($(columnas[i]).hasClass("bg-success")){
+				res += n*(m);	
+			}
+			m*=2;
+		}
+			if(res==0)flagsfinal += "<span class='text-muted'>"+res.toString(16).toUpperCase()+"<span>";
+			else flagsfinal += "<span class='text-success'>"+res.toString(16).toUpperCase()+"<span>";
+			res=0;
+		}
+		document.getElementById('handlingFlags').innerHTML=flagsfinal.toString();
+		handlingFlagsForm.value = document.getElementById('handlingFlags').innerText;
+		rawInput.value = rawInput.value.replace(new RegExp("(strHandlingFlags>)+[a-z.0-9-]*(<\/strHandlingFlags>)"), "strHandlingFlags>" + handlingFlagsForm.value + "</strHandlingFlags>");
+	}
+	
+	window.onload=autoborders;
     var baseHandlingV = `<?xml version="1.0" encoding="UTF-8"?>
 <CHandlingDataMgr>
   <HandlingData>
   <Item type="CHandlingData">
-      <handlingName>HANDLINGIDHERE</handlingName>
+      <handlingName>输入 HANDLING 名字</handlingName>
       <fMass value="1500.000000" />
       <fInitialDragCoeff value="8.000000" />
       <fDownforceModifier value="1.000" />
@@ -1376,9 +1558,13 @@
         else {
             $("#wEmptyFile").toggleClass("d-none", true);
         }
-
-        replaceHandlingAttr(e.name, type, e.value);
-        handlingArray.handling["" + e.name] = e.value;
+		
+		elementName = e.name;
+		if (elementName.indexOf("__") > -1) {
+			elementName = elementName.split("__")[0];
+		}
+        replaceHandlingAttr(elementName, type, e.value);
+        handlingArray.handling["" + elementName] = e.value;
         if (e.id == e.name + "Input") {
 
             var input = document.getElementById(e.name + "Slider");
@@ -1421,7 +1607,7 @@
                 var grip = handlingArray.handling.fTractionCurveMax;
                 var gripFront = Math.round((grip * e.value) * 100) / 100;
                 var gripRear = Math.round((grip * (1 - e.value)) * 100) / 100;
-                var result = gripFront + " Gs Front <br> " + gripRear + " Gs Rear";
+                var result = gripFront + "G 前轮 <br> " + gripRear + "G 后轮";
 
                 expl.innerHTML = result;
             }
@@ -1605,7 +1791,7 @@
             labels: [0, 50, 100, 150, 200],
             datasets: [{
 
-                label: 'Your vehicle',
+                label: '当前车辆',
                 fill: false,
                 data: [0, 1.5, 3],
                 backgroundColor: [
@@ -1620,7 +1806,7 @@
                 lineTension: 0.15,
             },
             {
-                label: 'Comparison',
+                label: '对比车辆',
                 fill: false,
                 data: [0, 1, 2],
                 backgroundColor: [
@@ -1645,7 +1831,7 @@
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: 'Extra Gs'
+                        labelString: '额外 G 力'
                     }
                 },],
                 xAxes: [
@@ -1653,7 +1839,7 @@
 
                         scaleLabel: {
                             display: true,
-                            labelString: 'Miles Per Hour'
+                            labelString: '英里每小时'
                         }
                     }
                 ]
@@ -1669,7 +1855,7 @@
             labels: [0, 25, 50, 75, 100, 125, 150, 175, 200],
             datasets: [
                 {
-                    label: 'Your Car',
+                    label: '当前车辆',
                     fill: false,
                     data: [0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.8, 2, 2.2],
                     backgroundColor: [
@@ -1684,7 +1870,7 @@
                     lineTension: 0.25,
                 },
                 {
-                    label: 'Comparison',
+                    label: '对比车辆',
                     fill: false,
                     data: [0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.8, 2, 2.2],
                     backgroundColor: [
@@ -1771,7 +1957,7 @@
 
                     scaleLabel: {
                         display: true,
-                        labelString: 'Resistance (Gs)'
+                        labelString: '空气阻力 (G 力)'
                     }
                 },],
                 xAxes: [
@@ -1779,7 +1965,7 @@
 
                         scaleLabel: {
                             display: true,
-                            labelString: 'Miles Per Hour'
+                            labelString: '英里每小时'
                         }
                     }
                 ]
@@ -1805,7 +1991,7 @@
 
             datasets: [{
                 steppedLine: true,
-                label: 'This car',
+                label: '当前车辆',
                 fill: false,
                 data: [0.2 * gearRatios[1], 0.2 * gearRatios[2], 0.2 * gearRatios[3], 0.2 * gearRatios[4], 0.2 * gearRatios[5], 0.2 * gearRatios[6],],
                 backgroundColor: [
@@ -1821,7 +2007,7 @@
             },
             {
                 steppedLine: true,
-                label: 'Comparison',
+                label: '对比车辆',
                 fill: false,
                 data: [0.2 * gearRatios[1], 0.2 * gearRatios[2], 0.2 * gearRatios[3], 0.2 * gearRatios[4], 0.2 * gearRatios[5], 0.2 * gearRatios[6],],
                 backgroundColor: [
@@ -1851,7 +2037,7 @@
                 xAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: 'Gear'
+                        labelString: '档位'
                     }
                 }]
             },
@@ -1863,10 +2049,10 @@
         type: 'horizontalBar',
 
         data: {
-            labels: ["Power", "Speed", "Braking", "Grip", "Aero"],
+            labels: ["动力", "速度", "刹车", "抓地", "气动"],
 
             datasets: [{
-                label: 'This car',
+                label: '当前车辆',
                 data: [5, 5, 5, 5, 5],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 0.2)',
@@ -1881,7 +2067,7 @@
                 borderWidth: 1,
 
             }, {
-                label: 'Comparison',
+                label: '对比车辆',
                 data: [5, 5, 5, 5, 5],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',
@@ -1934,10 +2120,10 @@
     var chartPerformanceIndex = new Chart(ctxPerformanceIndex, {
         type: 'horizontalBar',
         data: {
-            labels: ["PI"],
+            labels: ["性能分"],
 
             datasets: [{
-                label: 'This car',
+                label: '当前车辆',
                 data: [5],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -1948,7 +2134,7 @@
                 borderWidth: 1,
 
             }, {
-                label: 'Comparison',
+                label: '对比车辆',
                 data: [5],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',

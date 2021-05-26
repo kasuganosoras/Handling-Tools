@@ -15,139 +15,142 @@
 			.max-w{
 				max-width: 45%;
 			}
-
+			.border .py-1 {
+				cursor: pointer;
+			}
+			.border .py-1:hover {
+				background: rgba(0,0,0,0.05);
+			}
+			.mx-auto {
+				margin-bottom: 32px;
+			}
 		</style>
 		<body>
 			<main class="container-fluid mt-5 mx-auto">
-				<h1 class="text-center mt-3">Handling flags and stuff (WIP)</h1>
-				<div class="row mx-auto ">
-				
-				<div class="col-xxl-5 text-center mt-5 bg-whitesmoke border border-info p-5  mx-auto" id="modelFlagsSection">
-					<div class="alert alert-secondary mx-5" role="alert">
-						<h3 class="text-center mt-3">Model Flags Generator</h3>
-						<p>Click on each item of the table to enable or disable a model flag.<br>Below the table, you'll get a number which contains all the flags you have enabled.</p>
-						<!-- <input id="modelFlagInput" class="text-center" maxlength="8" value="00440010"> -->
-					</div>
-					<div id="table" class="border border-gray bg-light container-fluid">
-						<div class="row">
-							<div class="col-sm-3 py-1 align-middle">IS_VAN</div>
-							<div class="col-sm-3 py-1 align-middle">IS_BUS</div>
-							<div class="col-sm-3 py-1 align-middle">IS_LOW</div>
-							<div class="col-sm-3 py-1 align-middle">IS_BIG</div>
+				<!-- <h1 class="text-center mt-3">Handling flags 生成器</h1> -->
+				<div class="row mx-auto">
+					<div class="col-xxl-5 text-center mt-5 bg-whitesmoke border border-info p-5  mx-auto" id="modelFlagsSection">
+						<div class="alert alert-secondary mx-5" role="alert">
+							<h3 class="text-center mt-3">模型 Flags 生成器</h3>
+							<p>通过点击下面的每个表格项来启用对应的 Flag，然后最下方会显示生成出来的 Flag。</p>
 						</div>
-						<div class="row">
-							<div class="col-sm-3 py-1 align-middle">ABS_STD</div>
-							<div class="col-sm-3 py-1 align-middle">ABS_OPTION</div>
-							<div class="col-sm-3 py-1 align-middle">ABS_ALT_STD</div>
-							<div class="col-sm-3 py-1 align-middle">ABS_ALT_OPTION</div>
+						<div id="table" class="border border-gray bg-light container-fluid">
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">厢型车<br>IS_VAN</div>
+								<div class="col-sm-3 py-1 align-middle">公交车<br>IS_BUS</div>
+								<div class="col-sm-3 py-1 align-middle">低底盘车<br>IS_LOW</div>
+								<div class="col-sm-3 py-1 align-middle">大型车<br>IS_BIG</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">防抱死系统<br>ABS_STD</div>
+								<div class="col-sm-3 py-1 align-middle">可选防抱死<br>ABS_OPTION</div>
+								<div class="col-sm-3 py-1 align-middle">替换防抱死系统<br>ABS_ALT_STD</div>
+								<div class="col-sm-3 py-1 align-middle">可选替换防抱死<br>ABS_ALT_OPTION</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">没有车门<br>NO_DOORS</div>
+								<div class="col-sm-3 py-1 align-middle">前后座椅<br>TANDEM_SEATS</div>
+								<div class="col-sm-3 py-1 align-middle">坐在船里<br>SIT_IN_BOAT</div>
+								<div class="col-sm-3 py-1 align-middle">具有轨道<br>HAS_TRACKS</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">没有排气管<br>NO_EXHAUST</div>
+								<div class="col-sm-3 py-1 align-middle">两个排气管<br>DOUBLE_EXHAUST</div>
+								<div class="col-sm-3 py-1 align-middle">第一人称不能向后看<br>NO1FPS_LOOK_BEHIND</div>
+								<div class="col-sm-3 py-1 align-middle">没有车门时可以进入<br>CAN_ENTER_IF_NO_DOOR</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">前扭力梁悬挂<br>AXLE_F_TORSION</div>
+								<div class="col-sm-3 py-1 align-middle">前直桥悬挂<br>AXLE_F_SOLID</div>
+								<div class="col-sm-3 py-1 align-middle">前麦弗逊悬挂<br>AXLE_F_MCPHERSON</div>
+								<div class="col-sm-3 py-1 align-middle">将人物附加到车身<br>ATTACH_PED_TO_BODYSHELL</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">后扭力梁悬挂<br>AXLE_R_TORSION</div>
+								<div class="col-sm-3 py-1 align-middle">后直桥悬挂<br>AXLE_R_SOLID</div>
+								<div class="col-sm-3 py-1 align-middle">后麦弗逊悬挂<br>AXLE_R_MCPHERSON</div>
+								<div class="col-sm-3 py-1 align-middle">不强制清理地面<br>DONT_FORCE_GRND_CLEARANCE</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">不渲染转向动画<br>DONT_RENDER_STEER</div>
+								<div class="col-sm-3 py-1 align-middle">车轮不会爆裂<br>NO_WHEEL_BURST</div>
+								<div class="col-sm-3 py-1 align-middle">无敌载具<br>INDESTRUCTIBLE</div>
+								<div class="col-sm-3 py-1 align-middle">两个前轮<br>DOUBLE_FRONT_WHEELS</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">遥控车<br>RC</div>
+								<div class="col-sm-3 py-1 align-middle">两个后轮<br>DOUBLE_RWHEELS</div>
+								<div class="col-sm-3 py-1 align-middle">车轮不会损坏<br>MF_NO_WHEEL_BREAK</div>
+								<div class="col-sm-3 py-1 align-middle">掀背车<br>IS_HATCHBACK</div>
+							</div>
 						</div>
-						<div class="row">
-							<div class="col-sm-3  py-1 align-middle">NO_DOORS</div>
-							<div class="col-sm-3 py-1 align-middle">TANDEM_SEATS</div>
-							<div class="col-sm-3 py-1 align-middle">SIT_IN_BOAT</div>
-							<div class="col-sm-3 py-1 align-middle">HAS_TRACKS</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3 py-1 align-middle">NO_EXHAUST</div>
-							<div class="col-sm-3 py-1 align-middle">DOUBLE_EXHAUST</div>
-							<div class="col-sm-3 py-1 align-middle">NO1FPS_LOOK_BEHIND</div>
-							<div class="col-sm-3 py-1 align-middle">CAN_ENTER_IF_NO_DOOR</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3  py-1 align-middle ">AXLE_F_TORSION</div>
-							<div class="col-sm-3 py-1 align-middle">AXLE_F_SOLID</div>
-							<div class="col-sm-3 py-1 align-middle">AXLE_F_MCPHERSON</div>
-							<div class="col-sm-3 py-1 align-middle">ATTACH_PED_TO_BODYSHELL</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3  py-1 align-middle ">AXLE_R_TORSION</div>
-							<div class="col-sm-3 py-1 align-middle">AXLE_R_SOLID</div>
-							<div class="col-sm-3 py-1 align-middle">AXLE_R_MCPHERSON</div>
-							<div class="col-sm-3 py-1 align-middle">DONT_FORCE_GRND_CLEARANCE</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3  py-1 align-middle ">DONT_RENDER_STEER</div>
-							<div class="col-sm-3 py-1 align-middle">NO_WHEEL_BURST</div>
-							<div class="col-sm-3 py-1 align-middle">INDESTRUCTIBLE</div>
-							<div class="col-sm-3 py-1 align-middle">DOUBLE_FRONT_WHEELS</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3  py-1 align-middle ">RC</div>
-							<div class="col-sm-3 py-1 align-middle">DOUBLE_RWHEELS</div>
-							<div class="col-sm-3 py-1 align-middle">MF_NO_WHEEL_BREAK</div>
-							<div class="col-sm-3 py-1 align-middle">IS_HATCHBACK</div>
-						</div>
-					</div>
-					<div class="border border-info bg-light mt-2">
-						<h3 class="">Result</h3>
-						<div class="mb-2 mt-2 mx-auto text-center border d-inline border-dark bg-light container-fluid">&lt;strModelFlags&gt;<span class="text-muted"><strong id="modelFlags">00000000</strong></span>&lt;&frasl;strModelFlags&gt;</div><br>
-						<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">Remember that some flags are can override each other.<br>For example, <i>IS_BUS</i> and <i>IS_VAN</i> will not work together.</div>
-					</div>
-				</div>
-
-				<div class="col-xxl-5 text-center bg-whitesmoke mt-5 border border-info p-5 mx-auto " id="handlingFlagsSection">
-					<div class="alert alert-secondary mx-5" role="alert">
-						<h3 class="text-center mt-3">Handling Flags Generator</h3>
-						<p>Click on each item of the table to enable or disable a handling flag.<br>Below the table, you'll get a number which contains all the flags you have enabled.</p>
-					</div>
-					<div id="table" class=" border border-gray bg-light container-fluid">
-						<div class="row">
-							<div class="col-sm-3 py-1 align-middle">SMOOTH_COMPRESN</div>
-							<div class="col-sm-3 py-1 align-middle">REDUCED_MOD_MASS</div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3 py-1 align-middle">NO_HANDBRAKE</div>
-							<div class="col-sm-3 py-1 align-middle">STEER_REARWHEELS</div>
-							<div class="col-sm-3 py-1 align-middle">HB_REARWHEEL_STEER</div>
-							<div class="col-sm-3 py-1 align-middle">STEER_ALL_WHEELS</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3 py-1 align-middle">FREEWHEEL_NO_GAS</div>
-							<div class="col-sm-3 py-1 align-middle">NO_REVERSE	</div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3  py-1 align-middle">CVT</div>
-							<div class="col-sm-3 py-1 align-middle">ALT_EXT_WHEEL_BOUNDS_BEH</div>
-							<div class="col-sm-3 py-1 align-middle">DONT_RAISE_BOUNDS_AT_SPEED</div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3 py-1 align-middle">LESS_SNOW_SINK</div>
-							<div class="col-sm-3 py-1 align-middle">TYRES_CAN_CLI</div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3  py-1 align-middle ">OFFROAD_ABILITY</div>
-							<div class="col-sm-3 py-1 align-middle">OFFROAD_ABILITY2</div>
-							<div class="col-sm-3 py-1 align-middle">HF_TYRES_RAISE_SIDE_IMPACT_THRESHOLD</div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3  py-1 align-middle ">ENABLE_LEAN</div>
-							<div class="col-sm-3 py-1 align-middle">HEAVYARMOUR</div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-							<div class="col-sm-3 py-1 align-middle">ARMOURED</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-3  py-1 align-middle ">SELF_RIGHTING_IN_WATER</div>
-							<div class="col-sm-3 py-1 align-middle">IMPROVED_RIGHTING_FORCE</div>
-							<div class="col-sm-3 py-1 align-middle"></div>
-							<div class="col-sm-3 py-1 align-middle"></div>
+						<div class="border border-info bg-light mt-2">
+							<h3 class="">计算结果</h3>
+							<div class="mb-2 mt-2 mx-auto text-center border d-inline border-dark bg-light container-fluid">&lt;strModelFlags&gt;<span class="text-muted"><strong id="modelFlags">00000000</strong></span>&lt;&frasl;strModelFlags&gt;</div><br>
+							<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">请注意，某些 flag 会被其他 flag 覆盖。<br>例如：<i>IS_BUS</i> 会被 <i>IS_VAN</i> 覆盖。</div>
 						</div>
 					</div>
-					<div class="border border-info bg-light mt-2">
-						<h3 class="">Result</h3>
-						
-						<div class="mb-2 mt-2 mx-auto text-center border  d-inline border-dark bg-light container-fluid">&lt;strHandlingFlags&gt;<span class="text-muted"><strong id="handlingFlags">00000000</strong></span>&lt;&frasl;strHandlingFlags&gt; </div><br>
-	
-						<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">Remember that some flags are can override each other.<br>For example, <i>STEER_REARWHEELS</i> and <i>STEER_ALL_WHEELS</i> will not work together.</div>
+					<div class="col-xxl-5 text-center bg-whitesmoke mt-5 border border-info p-5 mx-auto " id="handlingFlagsSection">
+						<div class="alert alert-secondary mx-5" role="alert">
+							<h3 class="text-center mt-3">Handling Flags 生成器</h3>
+							<p>通过点击下面的每个表格项来启用对应的 Flag，然后最下方会显示生成出来的 Flag。</p>
+						</div>
+						<div id="table" class=" border border-gray bg-light container-fluid">
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">平滑压缩<br>SMOOTH_COMPRESN</div>
+								<div class="col-sm-3 py-1 align-middle">减少模型重量<br>REDUCED_MOD_MASS</div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">没有手刹<br>NO_HANDBRAKE</div>
+								<div class="col-sm-3 py-1 align-middle">后轮转向<br>STEER_REARWHEELS</div>
+								<div class="col-sm-3 py-1 align-middle">后轮手刹和转向<br>HB_REARWHEEL_STEER</div>
+								<div class="col-sm-3 py-1 align-middle">全轮转向<br>STEER_ALL_WHEELS</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">松油门时轮子空转<br>FREEWHEEL_NO_GAS</div>
+								<div class="col-sm-3 py-1 align-middle">不能倒车<br>NO_REVERSE</div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">无级变速箱<br>CVT</div>
+								<div class="col-sm-3 py-1 align-middle">额外车轮边界<br>ALT_EXT_WHEEL_BOUNDS_BEH</div>
+								<div class="col-sm-3 py-1 align-middle">高速时不提升边界<br>DONT_RAISE_BOUNDS_AT_SPEED</div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">减少雪地印记<br>LESS_SNOW_SINK</div>
+								<div class="col-sm-3 py-1 align-middle">轮胎可以打滑<br>TYRES_CAN_CLI</div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">越野车<br>OFFROAD_ABILITY</div>
+								<div class="col-sm-3 py-1 align-middle">越野车2<br>OFFROAD_ABILITY2</div>
+								<div class="col-sm-3 py-1 align-middle">提高侧边轮胎冲击<br>HF_TYRES_RAISE_SIDE_IMPACT_THRESHOLD</div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">启用 LEAN（未知）<br>ENABLE_LEAN</div>
+								<div class="col-sm-3 py-1 align-middle">重装甲<br>HEAVYARMOUR</div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+								<div class="col-sm-3 py-1 align-middle">装甲车<br>ARMOURED</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 py-1 align-middle">水中自动回正<br>SELF_RIGHTING_IN_WATER</div>
+								<div class="col-sm-3 py-1 align-middle">更大的扶正力<br>IMPROVED_RIGHTING_FORCE</div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+								<div class="col-sm-3 py-1 align-middle"></div>
+							</div>
+						</div>
+						<div class="border border-info bg-light mt-2">
+							<h3 class="">结果</h3>
+							<div class="mb-2 mt-2 mx-auto text-center border  d-inline border-dark bg-light container-fluid">&lt;strHandlingFlags&gt;<span class="text-muted"><strong id="handlingFlags">00000000</strong></span>&lt;&frasl;strHandlingFlags&gt; </div><br>
+							<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">请注意，某些 flag 会被其他 flag 覆盖。<br>例如：<i>STEER_REARWHEELS</i> 会被 <i>STEER_ALL_WHEELS</i> 覆盖。</div>
+						</div>
 					</div>
-				</div>
 				</div>
 			</main>
 		</body>
@@ -169,6 +172,7 @@
 			////////
 
 			function toggle(e){
+				if($(e.target).text() == "") return;
 				$(e.target).toggleClass("bg-success");
 				$(e.target).toggleClass("text-truncate");
 				calcModelFlags();
